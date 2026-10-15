@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Escolar Acessível</title>
+    <style>
+        /* Variáveis de cores para garantir alto contraste (Acessibilidade) */
+        :root {
+            --cor-fundo: #ffffff;
+            --cor-fundo-secundario: #f4f6f8;
+            --cor-texto: #212529;
+            --cor-primaria: #004e89;
+            --cor-destaque: #ff6b35;
+            --cor-borda: #ced4da;
+        }
+
+        /* Reset Básico */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+            font-size: 18px; /* Fonte legível */
+        }
+
+        /* Cabeçalho e Navegação */
+        header {
+            background-color: var(--cor-primaria);
+            color: #ffffff;
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a:focus {
+            background-color: #ffffff;
+            color: var(--cor-primaria);
+            border: 2px solid var(--cor-destaque);
+            outline: none;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        h2 {
+            color: var(--cor-primaria);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--cor-destaque);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+
+        /* Grid do Mapa */
+        .mapa {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            /* Layout Mobile First: 1 coluna */
+            grid-template-columns: 1fr;
+        }
+
+        .ambiente {
+            background-color: var(--cor-fundo-secundario);
+            border: 2px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--cor-texto);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .ambiente:hover, .ambiente:focus {
+            transform: translateY(-5px);
+            border-color: var(--cor-destaque);
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .icone {
+            font-size: 2.5rem;
+        }
+
+        /* Layout Desktop: Planta Baixa (CSS Grid Areas) */
+        @media (min-width: 768px) {
+            .mapa {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-areas:
+                    "entrada secretaria professores"
+                    "patio patio refeitorio"
+                    "sala biblioteca banheiro";
+            }
+            
+            .area-entrada { grid-area: entrada; }
+            .area-secretaria { grid-area: secretaria; }
+            .area-professores { grid-area: professores; }
+            .area-patio { grid-area: patio; }
+            .area-refeitorio { grid-area: refeitorio; }
+            .area-sala { grid-area: sala; }
+            .area-biblioteca { grid-area: biblioteca; }
+            .area-banheiro { grid-area: banheiro; }
+        }
+
+        /* Seção de Descrições */
+        .lista-descricoes {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card-descricao {
+            background-color: var(--cor-fundo-secundario);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 6px solid var(--cor-primaria);
+        }
+
+        .card-descricao h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--cor-primaria);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--cor-primaria);
+            color: #ffffff;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mapa da Escola</h1>
+        <nav aria-label="Navegação Principal">
+            <ul>
+                <li><a href="#mapa-visual">Visualizar Mapa</a></li>
+                <li><a href="#descricoes">Ler Descrições</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="mapa-visual">
+            <h2>Planta dos Ambientes</h2>
+            <div class="mapa" role="region" aria-label="Representação visual do mapa da escola">
+                <a href="#desc-entrada" class="ambiente area-entrada">
+                    <span class="icone" aria-hidden="true">🏫</span>
+                    <span>Entrada</span>
+                </a>
+                <a href="#desc-secretaria" class="ambiente area-secretaria">
+                    <span class="icone" aria-hidden="true">🏢</span>
+                    <span>Secretaria</span>
+                </a>
+                <a href="#desc-professores" class="ambiente area-professores">
+                    <span class="icone" aria-hidden="true">👩‍🏫</span>
+                    <span>Sala dos Professores</span>
+                </a>
+                <a href="#desc-patio" class="ambiente area-patio">
+                    <span class="icone" aria-hidden="true">🌳</span>
+                    <span>Pátio</span>
+                </a>
+                <a href="#desc-refeitorio" class="ambiente area-refeitorio">
+                    <span class="icone" aria-hidden="true">🍽️</span>
+                    <span>Refeitório</span>
+                </a>
+                <a href="#desc-sala" class="ambiente area-sala">
+                    <span class="icone" aria-hidden="true">📚</span>
+                    <span>Sala de aula</span>
+                </a>
+                <a href="#desc-biblioteca" class="ambiente area-biblioteca">
+                    <span class="icone" aria-hidden="true">📖</span>
+                    <span>Biblioteca</span>
+                </a>
+                <a href="#desc-banheiro" class="ambiente area-banheiro">
+                    <span class="icone" aria-hidden="true">🚻</span>
+                    <span>Banheiro</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="descricoes">
+            <h2>Informações dos Ambientes</h2>
+            <div class="lista-descricoes">
+                
+                <article id="desc-entrada" class="card-descricao">
+                    <h3><span aria-hidden="true">🏫</span> Entrada</h3>
+                    <p>O ponto principal de acesso à escola. Um ambiente seguro para a recepção e controle de entrada e saída de alunos, pais e visitantes.</p>
+                </article>
+
+                <article id="desc-secretaria" class="card-descricao">
+                    <h3><span aria-hidden="true">🏢</span> Secretaria</h3>
+                    <p>Setor administrativo focado no atendimento ao público. Aqui são realizadas matrículas, emissão de documentos, boletins e declarações.</p>
+                </article>
+
+                <article id="desc-sala" class="card-descricao">
+                    <h3><span aria-hidden="true">📚</span> Sala de aula</h3>
+                    <p>Espaço dedicado ao aprendizado diário. Ambiente organizado e equipado para garantir o foco e conforto durante as aulas.</p>
+                </article>
+
+                <article id="desc-biblioteca" class="card-descricao">
+                    <h3><span aria-hidden="true">📖</span> Biblioteca</h3>
+                    <p>Um ambiente silencioso e acolhedor focado em leitura e pesquisa. Oferece um vasto acervo de livros e mesas adequadas para estudo.</p>
+                </article>
+
+                <article id="desc-banheiro" class="card-descricao">
+                    <h3><span aria-hidden="true">🚻</span> Banheiro</h3>
+                    <p>Instalações sanitárias separadas e adaptadas, garantindo higiene, privacidade e acessibilidade para toda a comunidade escolar.</p>
+                </article>
+
+                <article id="desc-refeitorio" class="card-descricao">
+                    <h3><span aria-hidden="true">🍽️</span> Refeitório</h3>
+                    <p>Área ampla e higienizada destinada à alimentação. Onde os alunos se reúnem para as refeições, promovendo também a convivência.</p>
+                </article>
+
+                <article id="desc-patio" class="card-descricao">
+                    <h3><span aria-hidden="true">🌳</span> Pátio</h3>
+                    <p>Espaço aberto e arborizado. Ideal para socialização, recreação nos momentos de intervalo e realização de eventos ao ar livre.</p>
+                </article>
+
+                <article id="desc-professores" class="card-descricao">
+                    <h3><span aria-hidden="true">👩‍🏫</span> Sala dos professores</h3>
+                    <p>Local exclusivo para o corpo docente. Utilizado para planejamento de aulas, reuniões, correções de provas e descanso entre os turnos.</p>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Projeto de Mapa Escolar Acessível - Pronto para implantação no GitHub Pages.</p>
+    </footer>
+
+</body>
+</html>
